@@ -6,5 +6,34 @@ body {
   font-family: system-ui, sans-serif;
 }
 main {
-  padding: 24px;
+  padding: 100px;
+}
+
+header{
+	background-color: grey;
+	height: 50px;
+	width: 100%;
+	position: fixed;
+}
+
+.menu{
+	display: none;
+}
+header h1{
+  line-height: 20px;
+}
+header ul{
+	position: absolute;
+	right: 5vw;
+	top: 0;
+	line-height: 50px；
+}
+header li{
+	display: inline;
+	margin-right: 4vw;
+}
+
+header a{
+	color: white;
+	text-decoration: none;
 }
