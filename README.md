@@ -30,6 +30,27 @@ npm run dev
 
 首次执行浏览器检查前运行 `npx playwright install chromium`。运行浏览器检查时请先停止开发服务。
 
+### 启动验证记录（Q01）
+
+2026-11-27 在本次练习环境按上述命令逐条执行，实际结果如下。
+
+| 命令 | 实际结果 |
+|---|---|
+| `npm ci` | 安装 53 个包，0 个漏洞 |
+| `npm run check:base` | 通过：Node.js 24.14.1、20 项任务、121 个文本文件为 UTF-8 |
+| `npm test` | 7 个 v1 契约用例全部通过 |
+| `npm run typecheck` | 通过；无输出即无类型错误 |
+| `npm run build` | 通过；产物输出到 `dist/` |
+| `npm run dev` | 4780 提供页面，4781 提供接口，两端口均未占用 |
+
+启动后的入口核对：
+
+- `http://127.0.0.1:4780/vue.html` 返回 200，页面渲染 `h1`；
+- `/api/training/health` 返回 `{"data":{"status":"ok","mode":"local-training-only"}}`；
+- 以 `X-Training-Actor: user-01` 请求 `/api/training/v1/tickets?pageSize=20`，`meta.total` 为 25 条中的可见子集，返回记录的 `ownerId` 全部等于 `user-01`，证明权限过滤在服务端生效。
+
+本地数据文件位于 `.local/training-data.json`，已被 `.gitignore` 排除，不进入提交。
+
 ## 参考资料
 
 - [训练与验收要求](course/规范/训练方式.md)
